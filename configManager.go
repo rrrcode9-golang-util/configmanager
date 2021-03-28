@@ -10,7 +10,9 @@ import (
 	"strings"
 )
 
-// AssignConfiguration - pass the reference of struct (&s) as an argument, the struct will be modified 
+const defaultConfigFilePath = "default.conf"
+
+// AssignConfiguration - pass the reference of struct (&s) as an argument, the struct will be modified
 func AssignConfiguration(s interface{}) {
 
 	var err error
@@ -32,11 +34,12 @@ func AssignConfiguration(s interface{}) {
 
 	} else {
 		// if config file path is not specified search in current directory
-		_, err = os.Stat("cm.conf")
+		_, err = os.Stat(defaultConfigFilePath)
 		if err != nil {
-			log.Printf("No Config File found in current directory :: %v", err)
+			log.Printf(" < default.conf > File not found in current directory :: %v", err)
+			log.Fatal("\nABORTING PROCESS - NEITHER ANY CONFIG FILE IS SPECIFIED NOR A DEFAULT CONFIG FILE < default.conf > IS FOUND IN CURRENT DIRECTORY\n")
 		} else {
-			ConfigFilePath = "cm.conf"
+			ConfigFilePath = defaultConfigFilePath
 			configs, err = readConfigurationFile(ConfigFilePath)
 			if err != nil {
 				log.Fatalf("Error while Reading Config File < %v > :: %v", ConfigFilePath, err)
@@ -97,15 +100,11 @@ func readConfigurationFile(filePath string) ([]string, error) {
 
 }
 
-
-
-
-
 //config assignment
 func assignConfiguration(configs []string, s interface{}) {
 
 	configs = reverse(configs)
-	
+
 	v := reflect.ValueOf(s).Elem()
 	typeOfS := v.Type()
 
