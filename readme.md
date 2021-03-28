@@ -74,3 +74,21 @@ func main() {
 ```
 
 `AssignConfiguration` method takes the reference of struct variable, and then the fields will be assigned with the values from the config file.
+
+Now create a config file `default.conf` in the present directory. 
+
+>Note: Alternatively, `*.conf` file can be created anywhere in the system and the same can be specified while running your program passing arguments as mentioned above.
+
+```conf
+Val1 = 40
+Val2 = hello
+Val3 = 1
+Val4 = 80.7
+```
+
+Now, run the following command:
+```bash
+
+$ go run main.go 
+
+```
