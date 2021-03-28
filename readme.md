@@ -1,4 +1,4 @@
-This program `configmanager` reads a configuration file (*.conf) and assigns values to a struct defined by the user. This comes handy when you want to assign some variables in golang program from a configuration file. The process is simple: import configmanager, create your struct with exported fields, create a `*.conf` file or a `default.conf` file in PWD, define the variables in config file, pass the struct reference to `AssignConfiguration` method in `configmanager`; you are good to go.
+This program `configmanager` reads a configuration file (*.conf) and assigns values to a struct defined by the user. This comes handy when you want to assign some variables in golang program from a custom configuration file. The process is simple: import configmanager, create your struct with exported fields, create a `*.conf` file or a `default.conf` file in PWD, define the variables in config file, pass the struct reference to `AssignConfiguration` method in `configmanager`; you are good to go.
 
 ### Configuration File Format
 
