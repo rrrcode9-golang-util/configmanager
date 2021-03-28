@@ -37,7 +37,7 @@ func AssignConfiguration(s interface{}) {
 		_, err = os.Stat(defaultConfigFilePath)
 		if err != nil {
 			log.Printf(" < default.conf > File not found in current directory :: %v", err)
-			log.Fatal("\nABORTING PROCESS - NEITHER ANY CONFIG FILE IS SPECIFIED NOR A DEFAULT CONFIG FILE < default.conf > IS FOUND IN CURRENT DIRECTORY\n")
+			log.Fatal("ABORTING PROCESS - NEITHER ANY CONFIG FILE IS SPECIFIED NOR A DEFAULT CONFIG FILE < default.conf > IS FOUND IN CURRENT DIRECTORY\n")
 		} else {
 			ConfigFilePath = defaultConfigFilePath
 			configs, err = readConfigurationFile(ConfigFilePath)
