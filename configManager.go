@@ -84,7 +84,7 @@ func readConfigurationFile(filePath string) ([]string, error) {
 		}
 
 		if strings.Count(newText, "=") != 1 {
-			log.Fatalf("Invalid configuration at Line No: %v < %v >", lineNo, newText)
+			log.Fatalf("Invalid configuration at line No: %v < %v >", lineNo, newText)
 		}
 
 		configs = append(configs, newText)
@@ -138,7 +138,7 @@ func assignConfiguration(configs []string, s interface{}) {
 				if key == typeOfS.Field(i).Name {
 					nval, err := strconv.Atoi(val)
 					if err != nil {
-						log.Fatalf("ERROR: Invalid Parameters @ < %v > in Configs :: %v", key, err)
+						log.Fatalf("ERROR: Invalid parameters < %v > in Configs :: %v", key, err)
 					}
 					v.FieldByName(key).SetInt(int64(nval))
 					break
@@ -159,7 +159,7 @@ func assignConfiguration(configs []string, s interface{}) {
 				if key == typeOfS.Field(i).Name {
 					nval, err := strconv.ParseFloat(val, 64)
 					if err != nil {
-						log.Fatalf("ERROR: Invalid Parameters @ < %v > in Configs :: %v", key, err)
+						log.Fatalf("ERROR: Invalid parameters < %v > in configs :: %v", key, err)
 					}
 					v.FieldByName(key).SetFloat(nval)
 					break
