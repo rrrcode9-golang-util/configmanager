@@ -40,7 +40,7 @@ type config struct {
 let's first create a file `main.go` .  We define a struct config with four fields: Val1, Val2, Val3, Val4. The config file location can be specified using arguments with "--config-file-path" or "-f" and with path of config file.
 
 ```bash
-$ go run main.go --configfile-path <path to configfile>
+$ go run main.go --config-file-path <path to configfile>
 or
 $ go run main.go -f <path to configfile>
 ```
@@ -74,4 +74,3 @@ func main() {
 ```
 
 `AssignConfiguration` method takes the reference of struct variable, and then the fields will be assigned with the values from the config file.
-
