@@ -92,3 +92,5 @@ Now, run the following command:
 $ go run main.go 
 
 ```
+
+Output:`{Val1:40 Val2:hello Val3:true Val4:80.7}`
