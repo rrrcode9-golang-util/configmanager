@@ -29,7 +29,7 @@ func AssignConfiguration(s interface{}) {
 	if ConfigFilePath != "" {
 		configs, err = readConfigurationFile(ConfigFilePath)
 		if err != nil {
-			log.Fatalf("Error while Reading Specified File < %v > :: %v", ConfigFilePath, err)
+			log.Fatalf("Error while reading specified file < %v > :: %v", ConfigFilePath, err)
 		}
 
 	} else {
@@ -62,7 +62,6 @@ func readConfigurationFile(filePath string) ([]string, error) {
 
 	fl, err := os.Open(filePath)
 	if err != nil {
-		log.Printf("Error Reading Config File <%v> :: %v", filePath, err)
 		return configs, err
 	}
 	defer fl.Close()
