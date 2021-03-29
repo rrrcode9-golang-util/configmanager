@@ -1,6 +1,6 @@
 This program `configmanager` reads a configuration file (*.conf) and assign values to struct defined by the user.
 
-#### Configuration File Format
+### Configuration File Format
 
 - Comments shall start wiyh `#`
 
@@ -13,7 +13,7 @@ This program `configmanager` reads a configuration file (*.conf) and assign valu
 
 - Variables must be defined with a `field name` and a `value` sepearated with `=`
 
-- If a variable is defined multiple times in a single configuration file, the variable at the bottom is considered
+- If a variable is defined multiple times in a single configuration file, the bottom-most value of the corresponding variable is assigned
 
 ### Struct Definition
 
