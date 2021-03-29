@@ -11,7 +11,7 @@ This program `configmanager` reads a configuration file (*.conf) and assign valu
 
 - All variables in the configuration file must start with `Caps Letter`
 
-- Variables must be defined with a `field name` and a `value` sepearated with `=`
+- Variable must be defined with a `field name` and a `value` sepearated with `=`
 
 - If a variable is defined multiple times in a single configuration file, the bottom-most value of the corresponding variable is assigned
 
