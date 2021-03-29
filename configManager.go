@@ -2,7 +2,6 @@ package configmanager
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 	"reflect"
@@ -21,7 +20,7 @@ func AssignConfiguration(s interface{}) {
 	args := os.Args
 	if len(args) > 2 {
 		if args[1] == "--config-file-path" || args[1] == "-f" {
-			fmt.Println(args[2])
+			log.Println("Reading config file :: ",args[2])
 			ConfigFilePath = args[2]
 		}
 	}
@@ -38,7 +37,7 @@ func AssignConfiguration(s interface{}) {
 		if err != nil {
 			log.Printf(" < default.conf > File not found in current directory :: %v", err)
 			log.Fatalf(`ABORTING PROCESS - NEITHER ANY CONFIG FILE IS SPECIFIED NOR A DEFAULT CONFIG FILE < default.conf > IS FOUND IN CURRENT DIRECTORY
-To specify a config file, run the program with argument -f <path of config file *.conf>
+To specify a config file, run the program with arguments : -f <path of config file *.conf>
 To use a default config file, create a 'default.conf' file in the working directory			
 			`)
 		} else {
