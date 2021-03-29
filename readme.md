@@ -92,8 +92,7 @@ Notes:
 ```bash
 $ go run main.go --config-file-path <path of config file>
 or
-$ go run main.go -f <path to configfile>
+$ go run main.go -f <path of config file>
 ```
-
 
 > In case no config-file is specified, the `configmanager` program will search for `default.conf` file in the present working directory.
