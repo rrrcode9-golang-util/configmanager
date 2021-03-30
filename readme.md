@@ -44,7 +44,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/rrrcode9/configmanager"
+	"github.com/rrrcode9-golang-util/configmanager"
 )
 
 type config struct {
