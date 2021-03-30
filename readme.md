@@ -70,9 +70,10 @@ Now create a config file `default.conf` in the present directory.
 >Note: Alternatively, `*.conf` file can be created anywhere in the system and the same can be specified while running your program passing arguments as mentioned in `Notes` below.
 
 ```conf
+# file: ./default.conf
 Val1 = 40
 Val2 = hello
-Val3 = 1
+Val3 = true
 Val4 = 80.7
 ```
 
