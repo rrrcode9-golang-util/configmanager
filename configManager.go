@@ -205,7 +205,7 @@ func assignConfiguration(configs []string, s interface{}) {
 func reverse(slice []string) []string {
 
 	newSlice := []string{}
-	for ix, _ := range slice {
+	for ix := range slice {
 		newSlice = append(newSlice, slice[len(slice)-1-ix])
 	}
 
