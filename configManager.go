@@ -9,8 +9,7 @@ import (
 	"strings"
 )
 
-const defaultConfigFilePath = "default.conf"
-
+var DefaultConfigFilePath = "default.conf"
 // AssignConfiguration - pass the reference of struct (&s) as an argument, the struct will be modified
 func AssignConfiguration(s interface{}) {
 
@@ -33,15 +32,15 @@ func AssignConfiguration(s interface{}) {
 
 	} else {
 		// if config file path is not specified search in current directory
-		_, err = os.Stat(defaultConfigFilePath)
+		_, err = os.Stat(DefaultConfigFilePath)
 		if err != nil {
-			log.Printf(" < default.conf > File not found in current directory :: %v", err)
-			log.Fatalf(`ABORTING PROCESS - NEITHER ANY CONFIG FILE IS SPECIFIED NOR A DEFAULT CONFIG FILE < default.conf > IS FOUND IN CURRENT DIRECTORY
+			log.Printf(" Default config file < %v > could not be found :: %v", DefaultConfigFilePath,err)
+			log.Fatalf(`ABORTING PROCESS - NEITHER ANY CONFIG FILE IS SPECIFIED NOR A DEFAULT CONFIG FILE < %v > IS FOUND IN CURRENT DIRECTORY
 To specify a config file, run the program with arguments : -f <path of config file *.conf>
-To use a default config file, create a 'default.conf' file in the working directory			
-			`)
+To use a default config file, create a  < %v > file.			
+			`,DefaultConfigFilePath,DefaultConfigFilePath)
 		} else {
-			ConfigFilePath = defaultConfigFilePath
+			ConfigFilePath = DefaultConfigFilePath
 			configs, err = readConfigurationFile(ConfigFilePath)
 			if err != nil {
 				log.Fatalf("Error while Reading Config File < %v > :: %v", ConfigFilePath, err)
