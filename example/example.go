@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/rrrcode9-golang-util/configmanager"
 )
 
@@ -13,9 +14,14 @@ type config struct {
 }
 
 func main() {
-	c := config{}
-	configmanager.AssignConfiguration(&c)
+	configs := config{}
 
-	fmt.Printf("%+v\n", c)
+	//specify default config file path | Optional [by default it is - 'default.conf' in PWD]
+	configmanager.DefaultConfigFilePath = "./default3.conf"
+
+	// assign configuration
+	configmanager.AssignConfiguration(&configs)
+
+	fmt.Printf("%+v\n", configs)
 
 }
