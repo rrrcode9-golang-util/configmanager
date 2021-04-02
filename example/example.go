@@ -17,7 +17,7 @@ func main() {
 	configs := config{}
 
 	//specify default config file path | Optional [by default it is - 'default.conf' in PWD]
-	configmanager.DefaultConfigFilePath = "./default3.conf"
+	configmanager.DefaultConfigFilePath = "./default.conf"
 
 	// assign configuration
 	configmanager.AssignConfiguration(&configs)
