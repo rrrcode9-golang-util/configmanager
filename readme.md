@@ -102,7 +102,7 @@ $ go run main.go
 
 Output: `{Val1:40 Val2:hello Val3:true Val4:80.7 Val5:[hi hello hola] Val6:[2 3 4] Val7:[2.5 5 9.8]}`
 
-Notes: 
+### Notes: 
 
 > Alternatively, the config file location can be specified using arguments with "--config-file-path" or "-f" and with path of config file.
 
@@ -114,8 +114,9 @@ $ go run main.go -f <path of config file>
 
 > In case no config-file is specified, the `configmanager` program will search for `default.conf` file in the present working directory.
 
-> The default path for config file is `./default.conf`. In case you need to change the path (or name) of default config file, then please sepecify this in your program file: 
+
+The default path for config file is `./default.conf`. In case you need to change the path (or name) of default config file, then please sepecify this in your program file: 
 
 ```go
-configmanager.DefaultConfigFilePath = < path/for/default/config/file > 
+configmanager.DefaultConfigFilePath =  path/for/default/config/file 
 ```
