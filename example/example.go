@@ -11,6 +11,9 @@ type config struct {
 	Val2 string
 	Val3 bool
 	Val4 float64
+	Val5 []string
+	Val6 []int64
+	Val7 []float64
 }
 
 func main() {
