@@ -8,11 +8,12 @@ import (
 	"strconv"
 	"strings"
 )
-// DefaultConfigFilePath - Specify the default configuration file path 
+
+// DefaultConfigFilePath - Specify the default configuration file path
 var DefaultConfigFilePath = "default.conf"
 
 // AssignConfiguration - pass the reference of struct (&s) as an argument, the struct will be modified
-func AssignConfiguration(s interface{}) {
+func AssignConfiguration(configStruct interface{}) {
 
 	var err error
 	ConfigFilePath := ""
@@ -20,7 +21,7 @@ func AssignConfiguration(s interface{}) {
 	args := os.Args
 	if len(args) > 2 {
 		if args[1] == "--config-file-path" || args[1] == "-f" {
-			log.Println("Reading config file :: ",args[2])
+			log.Println("Reading config file :: ", args[2])
 			ConfigFilePath = args[2]
 		}
 	}
@@ -33,15 +34,15 @@ func AssignConfiguration(s interface{}) {
 
 	} else {
 		// if config file path is not specified read defaultconfigfile
-		log.Println("Reading default config file :: ",DefaultConfigFilePath)
+		log.Println("Reading default config file :: ", DefaultConfigFilePath)
 		_, err = os.Stat(DefaultConfigFilePath)
 		if err != nil {
-			
-			log.Printf("Error: Could not find < %v > file :: %v", DefaultConfigFilePath,err)
+
+			log.Printf("Error: Could not find < %v > file :: %v", DefaultConfigFilePath, err)
 			log.Fatalf(`ABORTING PROCESS - NEITHER ANY CONFIG FILE IS SPECIFIED NOR THE DEFAULT CONFIG FILE < %v > IS FOUND.
 To specify a config file, run the program with arguments : -f <path of config file *.conf>
 To use a default config file, create a  < %v > file.			
-			`,DefaultConfigFilePath,DefaultConfigFilePath)
+			`, DefaultConfigFilePath, DefaultConfigFilePath)
 		} else {
 			ConfigFilePath = DefaultConfigFilePath
 			configs, err = readConfigurationFile(ConfigFilePath)
@@ -55,7 +56,7 @@ To use a default config file, create a  < %v > file.
 	// fmt.Println(configs)
 
 	//assign default
-	assignConfiguration(configs, s)
+	assignConfiguration(configs, configStruct)
 
 }
 
@@ -114,15 +115,16 @@ func assignConfiguration(configs []string, s interface{}) {
 	for i := 0; i < v.NumField(); i++ {
 		f := v.Field(i)
 		// fmt.Println(f.Kind(), typeOfS.Field(i).Name)
-		switch type_ := f.Kind(); type_ {
+		switch f.Type().String() {
 
-		case reflect.String:
+		case "string":
 			for ix, vl := range configs {
 
 				_temp := strings.Split(vl, "=")
 				key, val := _temp[0], _temp[1]
 
 				if key == typeOfS.Field(i).Name {
+					val = strings.Trim(val, " ") // trim white spaces
 					v.FieldByName(key).SetString(val)
 					break
 				}
@@ -133,7 +135,7 @@ func assignConfiguration(configs []string, s interface{}) {
 
 			}
 
-		case reflect.Int64:
+		case "int64":
 			for ix, vl := range configs {
 
 				_temp := strings.Split(vl, "=")
@@ -154,7 +156,7 @@ func assignConfiguration(configs []string, s interface{}) {
 
 			}
 
-		case reflect.Float64:
+		case "float64":
 			for ix, vl := range configs {
 
 				_temp := strings.Split(vl, "=")
@@ -175,7 +177,7 @@ func assignConfiguration(configs []string, s interface{}) {
 
 			}
 
-		case reflect.Bool:
+		case "bool":
 			for ix, vl := range configs {
 
 				_temp := strings.Split(vl, "=")
@@ -195,6 +197,93 @@ func assignConfiguration(configs []string, s interface{}) {
 				}
 
 			}
+
+		case "[]string":
+
+			for ix, vl := range configs {
+
+				_temp := strings.Split(vl, "=")
+				key, val := _temp[0], _temp[1]
+
+				if key == typeOfS.Field(i).Name {
+					valSlice := strings.Split(val, "|")
+
+					slice := reflect.MakeSlice(reflect.TypeOf([]string{}), len(valSlice), len(valSlice))
+
+					for ix, vl := range valSlice {
+						vl := strings.Trim(vl, " ")
+						slice.Index(ix).SetString(string(vl))
+					}
+					v.FieldByName(key).Set(slice)
+					break
+				}
+
+				if ix+1 == len(configs) {
+					log.Fatalf("ERROR: Parameter < %v > is missing in configs", typeOfS.Field(i).Name)
+				}
+
+			}
+
+		case "[]float64":
+
+			for ix, vl := range configs {
+
+				_temp := strings.Split(vl, "=")
+				key, val := _temp[0], _temp[1]
+
+				if key == typeOfS.Field(i).Name {
+					valSlice := strings.Split(val, "|")
+
+					slice := reflect.MakeSlice(reflect.TypeOf([]float64{}), len(valSlice), len(valSlice))
+
+					for ix, vl := range valSlice {
+						fval, err := strconv.ParseFloat(vl, 64)
+						if err != nil {
+							log.Fatalf("ERROR: Invalid parameters < %v > in configs :: %v", key, err)
+						}
+						slice.Index(ix).SetFloat(fval)
+					}
+					v.FieldByName(key).Set(slice)
+					break
+				}
+
+				if ix+1 == len(configs) {
+					log.Fatalf("ERROR: Parameter < %v > is missing in configs", typeOfS.Field(i).Name)
+				}
+
+			}
+
+		case "[]int64":
+
+			for ix, vl := range configs {
+
+				_temp := strings.Split(vl, "=")
+				key, val := _temp[0], _temp[1]
+
+				if key == typeOfS.Field(i).Name {
+					valSlice := strings.Split(val, "|")
+
+					slice := reflect.MakeSlice(reflect.TypeOf([]int64{}), len(valSlice), len(valSlice))
+
+					for ix, vl := range valSlice {
+						ival, err := strconv.Atoi(vl)
+						if err != nil {
+							log.Fatalf("ERROR: Invalid parameters < %v > in Configs :: %v", key, err)
+						}
+						slice.Index(ix).SetInt(int64(ival))
+					}
+					v.FieldByName(key).Set(slice)
+					break
+				}
+
+				if ix+1 == len(configs) {
+					log.Fatalf("ERROR: Parameter < %v > is missing in configs", typeOfS.Field(i).Name)
+				}
+
+			}
+
+		default:
+			log.Fatalf("ERROR: Type of < %v > is < %v >, which is not supported", typeOfS.Field(i).Name, f.Type().String())
 
 		}
 

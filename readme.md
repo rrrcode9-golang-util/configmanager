@@ -18,6 +18,8 @@ This program `configmanager` reads a configuration file (*.conf) and assigns val
 
 - If a variable is defined multiple times in a single configuration file, the bottom-most value of the corresponding variable is assigned
 
+- For variable of type slice, the values in configuration files shall be separate with "|".
+
 ### Struct Definition
 
 Each field of the user-defined struct shall be exported (First letter must be in caps), so that the same can be accessed by `configmanager` program to assign values to struct fields from config file.
@@ -28,6 +30,9 @@ Following types are supported for struct fields:
 > - float64
 > - string
 > - bool 
+> - []int64
+> - []float64
+> - []string
 
 ```go
 type config struct {
@@ -35,6 +40,9 @@ type config struct {
 	Val2 string
 	Val3 bool
 	Val4 float64
+	Val5 []string
+	Val6 []int64
+	Val7 []float64
 }
 ```
 
@@ -54,7 +62,10 @@ type config struct {
 	Val1 int64
 	Val2 string
 	Val3 bool
-	val4 float64
+	Val4 float64
+	Val5 []string
+	Val6 []int64
+	Val7 []float64
 }
 
 func main() {
@@ -78,6 +89,9 @@ Val1 = 40
 Val2 = hello
 Val3 = true
 Val4 = 80.7
+Val5 = hi | hello | hola
+Val6 = 2 | 3 | 4
+Val7 = 2.5 | 5 |9.8
 ```
 
 Now, run the following command:
@@ -86,10 +100,9 @@ $ go run main.go
 
 ```
 
-Output: `{Val1:40 Val2:hello Val3:true Val4:80.7}`
+Output: `{Val1:40 Val2:hello Val3:true Val4:80.7 Val5:[hi hello hola] Val6:[2 3 4] Val7:[2.5 5 9.8]}`
 
 Notes: 
-
 
 > Alternatively, the config file location can be specified using arguments with "--config-file-path" or "-f" and with path of config file.
 
