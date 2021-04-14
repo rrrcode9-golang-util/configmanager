@@ -208,13 +208,20 @@ func assignConfiguration(configs []string, s interface{}) {
 				key, val := _temp[0], _temp[1]
 
 				if key == typeOfS.Field(i).Name {
-					valSlice := strings.Split(val, DefaultSliceParametersSeparator)
+					valSlice := []string{}
+					
+					for _,prm := range strings.Split(val, DefaultSliceParametersSeparator){
+						prm = strings.Trim(prm," ")
+						//filter empty parameters
+						if prm != ""{
+							valSlice = append(valSlice,prm)
+						}
+					}
 
 					slice := reflect.MakeSlice(reflect.TypeOf([]string{}), len(valSlice), len(valSlice))
 
-					for ix, vl := range valSlice {
-						vl := strings.Trim(vl, " ")
-						slice.Index(ix).SetString(string(vl))
+					for ix, vl_ := range valSlice {
+						slice.Index(ix).SetString(string(vl_))
 					}
 					v.FieldByName(key).Set(slice)
 					break
@@ -234,12 +241,20 @@ func assignConfiguration(configs []string, s interface{}) {
 				key, val := _temp[0], _temp[1]
 
 				if key == typeOfS.Field(i).Name {
-					valSlice := strings.Split(val, DefaultSliceParametersSeparator)
+					valSlice := []string{}
+					
+					for _,prm := range strings.Split(val, DefaultSliceParametersSeparator){
+						prm = strings.Trim(prm," ")
+						//filter empty parameters
+						if prm != ""{
+							valSlice = append(valSlice,prm)
+						}
+					}
 
 					slice := reflect.MakeSlice(reflect.TypeOf([]float64{}), len(valSlice), len(valSlice))
 
-					for ix, vl := range valSlice {
-						fval, err := strconv.ParseFloat(vl, 64)
+					for ix, vl_ := range valSlice {
+						fval, err := strconv.ParseFloat(vl_, 64)
 						if err != nil {
 							log.Fatalf("ERROR: Invalid parameters < %v > in configs :: %v", key, err)
 						}
@@ -263,12 +278,20 @@ func assignConfiguration(configs []string, s interface{}) {
 				key, val := _temp[0], _temp[1]
 
 				if key == typeOfS.Field(i).Name {
-					valSlice := strings.Split(val, DefaultSliceParametersSeparator)
+					valSlice := []string{}
+					
+					for _,prm := range strings.Split(val, DefaultSliceParametersSeparator){
+						prm = strings.Trim(prm," ")
+						//filter empty parameters
+						if prm != ""{
+							valSlice = append(valSlice,prm)
+						}
+					}
 
 					slice := reflect.MakeSlice(reflect.TypeOf([]int64{}), len(valSlice), len(valSlice))
 
-					for ix, vl := range valSlice {
-						ival, err := strconv.Atoi(vl)
+					for ix, vl_ := range valSlice {
+						ival, err := strconv.Atoi(vl_)
 						if err != nil {
 							log.Fatalf("ERROR: Invalid parameters < %v > in Configs :: %v", key, err)
 						}
