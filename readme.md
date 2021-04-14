@@ -21,7 +21,8 @@ This program `configmanager` reads a configuration file (*.conf) and assigns val
 - For variable of type slice, the values in configuration files shall be separate with "|". In case you need to change the separator character,then specify this in your program:
 
 ```go
-configmanager.DefaultSliceParametersSeparator =  character/for/slice/parameter/separator // Never use "#"
+configmanager.DefaultSliceParametersSeparator =  character/for/slice/parameter/separator 
+// Never use "#" as the separator
 ```
 
 ### Struct Definition
