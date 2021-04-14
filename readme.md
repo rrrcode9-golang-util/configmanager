@@ -18,7 +18,11 @@ This program `configmanager` reads a configuration file (*.conf) and assigns val
 
 - If a variable is defined multiple times in a single configuration file, the bottom-most value of the corresponding variable is assigned
 
-- For variable of type slice, the values in configuration files shall be separate with "|".
+- For variable of type slice, the values in configuration files shall be separate with "|". In case you need to change the separator character,then specify this in your program:
+
+```go
+configmanager.DefaultSliceParametersSeparator =  character/for/slice/parameter/separator // Never use "#"
+```
 
 ### Struct Definition
 

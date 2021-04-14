@@ -9,8 +9,10 @@ import (
 	"strings"
 )
 
-// DefaultConfigFilePath - Specify the default configuration file path
+// DefaultConfigFilePath - The default configuration file path
 var DefaultConfigFilePath = "default.conf"
+// DefaultSliceParametersSeparator - The default Slice Parameters Separator 
+var DefaultSliceParametersSeparator = "|"
 
 // AssignConfiguration - pass the reference of struct (&s) as an argument, the struct will be modified
 func AssignConfiguration(configStruct interface{}) {
@@ -206,7 +208,7 @@ func assignConfiguration(configs []string, s interface{}) {
 				key, val := _temp[0], _temp[1]
 
 				if key == typeOfS.Field(i).Name {
-					valSlice := strings.Split(val, "|")
+					valSlice := strings.Split(val, DefaultSliceParametersSeparator)
 
 					slice := reflect.MakeSlice(reflect.TypeOf([]string{}), len(valSlice), len(valSlice))
 
@@ -232,7 +234,7 @@ func assignConfiguration(configs []string, s interface{}) {
 				key, val := _temp[0], _temp[1]
 
 				if key == typeOfS.Field(i).Name {
-					valSlice := strings.Split(val, "|")
+					valSlice := strings.Split(val, DefaultSliceParametersSeparator)
 
 					slice := reflect.MakeSlice(reflect.TypeOf([]float64{}), len(valSlice), len(valSlice))
 
@@ -261,7 +263,7 @@ func assignConfiguration(configs []string, s interface{}) {
 				key, val := _temp[0], _temp[1]
 
 				if key == typeOfS.Field(i).Name {
-					valSlice := strings.Split(val, "|")
+					valSlice := strings.Split(val, DefaultSliceParametersSeparator)
 
 					slice := reflect.MakeSlice(reflect.TypeOf([]int64{}), len(valSlice), len(valSlice))
 
