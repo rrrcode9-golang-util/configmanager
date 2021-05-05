@@ -1,3 +1,3 @@
-module github.com/rrrcode9/configmanager
+module github.com/rrrcode9-golang-util/configmanager
 
-go 1.16
+go 1.15
