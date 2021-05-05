@@ -20,9 +20,14 @@ func AssignConfiguration(s interface{}) {
 	args := os.Args
 	if len(args) > 2 {
 		if args[1] == "--config-file-path" || args[1] == "-f" {
-			log.Println("Reading config file :: ",args[2])
+			log.Println("Reading config file :: ", args[2])
 			ConfigFilePath = args[2]
 		}
+	}
+
+	// if config file path is not specified, first check environment variable CONFIG_FILE_PATH
+	if ConfigFilePath == "" {
+		ConfigFilePath = os.Getenv("CONFIG_FILE_PATH")
 	}
 
 	if ConfigFilePath != "" {
@@ -32,13 +37,15 @@ func AssignConfiguration(s interface{}) {
 		}
 
 	} else {
+
 		// if config file path is not specified search in current directory
 		_, err = os.Stat(defaultConfigFilePath)
 		if err != nil {
 			log.Printf(" < default.conf > File not found in current directory :: %v", err)
 			log.Fatalf(`ABORTING PROCESS - NEITHER ANY CONFIG FILE IS SPECIFIED NOR A DEFAULT CONFIG FILE < default.conf > IS FOUND IN CURRENT DIRECTORY
 To specify a config file, run the program with arguments : -f <path of config file *.conf>
-To use a default config file, create a 'default.conf' file in the working directory			
+To use a default config file, create a 'default.conf' file in the working directory	
+To specify config file path in environment variable, assign config file path to CONFIG_FILE_PATH variable		
 			`)
 		} else {
 			ConfigFilePath = defaultConfigFilePath

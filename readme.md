@@ -74,3 +74,5 @@ func main() {
 ```
 
 `AssignConfiguration` method takes the reference of struct variable, and then the fields will be assigned with the values from the config file.
+
+To specify config file path in environment variable, assign config file path to CONFIG_FILE_PATH variable
