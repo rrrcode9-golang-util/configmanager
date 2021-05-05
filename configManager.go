@@ -31,6 +31,9 @@ func AssignConfiguration(configStruct interface{}) {
 	// if config file path is not specified, first check environment variable CONFIG_FILE_PATH
 	if ConfigFilePath == "" {
 		ConfigFilePath = os.Getenv("CONFIG_FILE_PATH")
+		if ConfigFilePath != ""{
+			log.Println("Reading config file [ Env variable : CONFIG_FILE_PATH ] :: ", ConfigFilePath)
+		}
 	}
 
 	if ConfigFilePath != "" {
