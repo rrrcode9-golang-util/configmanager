@@ -48,7 +48,8 @@ func AssignConfiguration(configStruct interface{}) {
 			log.Printf("Error: Could not find < %v > file :: %v", DefaultConfigFilePath, err)
 			log.Fatalf(`ABORTING PROCESS - NEITHER ANY CONFIG FILE IS SPECIFIED NOR THE DEFAULT CONFIG FILE < %v > IS FOUND.
 To specify a config file, run the program with arguments : -f <path of config file *.conf>
-To use a default config file, create a  < %v > file.			
+To use a default config file, create a  < %v > file.
+To specify config file path in environment variable, assign config file path to CONFIG_FILE_PATH variable.			
 			`, DefaultConfigFilePath, DefaultConfigFilePath)
 		} else {
 			ConfigFilePath = DefaultConfigFilePath

@@ -125,3 +125,4 @@ The default path for config file is `./default.conf`. In case you need to change
 ```go
 configmanager.DefaultConfigFilePath =  path/for/default/config/file 
 ```
+To specify config file path in environment variable, assign config file path to CONFIG_FILE_PATH variable
